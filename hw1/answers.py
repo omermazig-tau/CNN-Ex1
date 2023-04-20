@@ -59,7 +59,7 @@ part3_q3 = r"""
 If the learning rate was too high, the classifier would miss the minimum of the loss function and it the graph would going up and down (and not going down monotonivally).
 If the learning rate was too low, the graph would be less curved and we would see it descend more slowly.
 2. The model is slightly overfitted to the training set.
-This is because the training accuracy is a slightly higher than the validation accuracy. 
+If the model were highly overfitted to the training set, we would see a very high accuracy on the training set, but a significantly lower accuracy on the test set. On the other hand, if the model were highly underfitted to the training set, we would see a low accuracy on both the training and test sets. However, in this case, we can see that the accuracy on the training set is very high, close to 100%, but the accuracy on the test set is slightly lower, around 85-90%. This suggests that the model is fitting well to the training set, but it may not be generalizing well to new examples, which is a sign of slight overfitting.
 """
 
 # ==============
@@ -76,8 +76,9 @@ We can see that the residual plot is closer to the ideal pattern. We can see als
 
 part4_q2 = r"""
 **Your answer:**
-The model fitted the data 180 times in total because we have 3 folds and 3 degrees and 20 lambdas. So in total we have:
-3 * 3 * 20 = 180 times.
+1. We used np.logspace instead of np.linspace when defining the range for lambda in the cross-validation code, as it is better to sample values from different orders of magnitude. Sampling in logspace allows for better coverage of the scale, as we do not know if the regularization term should be very small, medium-sized or large.
+
+2. The model fitted the data 180 times in total because we have 3 folds and 3 degrees and 20 lambdas. So in total we have: 3 * 3 * 20 = 180 times.
 """
 
 # ==============
