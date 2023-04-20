@@ -140,14 +140,17 @@ def top_correlated_features(df: DataFrame, target_feature, n=5):
     # TODO: Calculate correlations with target and sort features by it
 
     # ====== YOUR CODE: ======
-    corr = df.corr(method='pearson')
-    corr_abs = corr.abs()
-    corr_abs = corr_abs.sort_values(by=[target_feature], ascending=False, axis=1)
+    # Calculate correlations with target and sort features by it
+    corr_df = df.corr(method='pearson')[[target_feature]]
+    corr_df.columns = ['corr']
+    corr_df = corr_df.drop([target_feature])
 
-    top_n_features = corr_abs.iloc[:, 1:n+1].columns.tolist()
-    top_n_corr = []
-    for feature in top_n_features:
-        top_n_corr.append(corr.at[target_feature, feature])
+    # Sort by absolute value of correlation and take the top n
+    top_n = corr_df.iloc[abs(corr_df['corr']).argsort()[::-1][:n]]
+
+    # Extract feature names and correlation coefficients as sequences
+    top_n_features = list(top_n.index)
+    top_n_corr = list(top_n['corr'])
     # ========================
 
     return top_n_features, top_n_corr
